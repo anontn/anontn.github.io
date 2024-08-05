@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalItems = sliderItems.length;
     const currentSlideElem = document.getElementById('currentSlide');
     const totalSlidesElem = document.getElementById('totalSlides');
+    const prevButton = document.querySelector('.slider__prev');
+    const nextButton = document.querySelector('.slider__next');
     let currentIndex = 0;
     let slidesToShow = calculateSlidesToShow();
 
@@ -33,37 +35,63 @@ document.addEventListener('DOMContentLoaded', function() {
         const visibleOffset = (sliderList.clientWidth - (visibleItems * slideWidth)) / 2;
         sliderList.style.transform = `translateX(${offset + visibleOffset}px)`;
         updateCurrentSlide();
+        updateButtonState(); 
     }
 
     function updateCurrentSlide() {
-        currentSlideElem.textContent = `${currentIndex + 1}`;
+        currentSlideElem.textContent = `${currentIndex + slidesToShow}`;
     }
 
     function autoSlide() {
         if (currentIndex < totalItems - slidesToShow) {
             currentIndex++;
         } else {
-            currentIndex = 0; // Reset to first slide if at the end
+            currentIndex = 0; 
         }
         updateSlider();
     }
 
-    // Automatic sliding every 4 seconds
+    function updateButtonState() {
+        if (prevButton) {
+            if (currentIndex <= 0) {
+                prevButton.classList.add('disabled');
+                prevButton.classList.remove('active');
+            } else {
+                prevButton.classList.remove('disabled');
+                prevButton.classList.add('active');
+            }
+        }
+
+        if (nextButton) {
+            if (currentIndex + slidesToShow >= totalItems) {
+                nextButton.classList.add('disabled');
+                nextButton.classList.remove('active');
+            } else {
+                nextButton.classList.remove('disabled');
+                nextButton.classList.add('active');
+            }
+        }
+    }
+
     setInterval(autoSlide, 4000);
 
-    document.querySelector('.slider__prev').addEventListener('click', function () {
-        if (currentIndex > 0) {
-            currentIndex--;
-        }
-        updateSlider();
-    });
+    if (prevButton) {
+        prevButton.addEventListener('click', function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        });
+    }
 
-    document.querySelector('.slider__next').addEventListener('click', function () {
-        if (currentIndex < totalItems - slidesToShow) {
-            currentIndex++;
-        }
-        updateSlider();
-    });
+    if (nextButton) {
+        nextButton.addEventListener('click', function () {
+            if (currentIndex < totalItems - slidesToShow) {
+                currentIndex++;
+                updateSlider();
+            }
+        });
+    }
 
     window.addEventListener('resize', updateSlider);
 
