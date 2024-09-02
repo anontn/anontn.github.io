@@ -11,6 +11,9 @@ body {
 }
 
 .container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -46,6 +49,7 @@ a:hover {
 }
 
 .email {
+    align-self: center;
     font-weight: bold;
     background-color: #f9f9f9;
     padding: 10px;
@@ -55,6 +59,31 @@ a:hover {
     width: 100%;
     word-break: break-word;
     font-size: 16px;
+    cursor: pointer; /* Добавляем указатель курсора */
+}
+
+.email:active {
+    background-color: #e0e0e0; /* Изменение фона при клике */
+}
+
+/* Всплывающее окно */
+.notification {
+    visibility: hidden; /* По умолчанию скрыто */
+    background-color: #28a745; /* Зеленый фон для уведомления */
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.notification.show {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Адаптивные стили */
