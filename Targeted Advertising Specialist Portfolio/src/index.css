@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0A0A0F;
+  color: white;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes fillWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.metric-bar {
+  width: 0;
+}
+
+.metric-container:hover .metric-bar {
+  animation: fillWidth 1.5s ease-out forwards;
+}
+
+.hero-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.15) 1px, transparent 0);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 1) 0%, transparent 70%);
+}
